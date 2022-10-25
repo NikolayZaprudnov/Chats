@@ -55,16 +55,16 @@ object chatServise {
     }
 
     fun addMessage(message: Chat.Message, CompanionId: Int): Chat.Message {
-        message.MessageId = findChatById(CompanionId)?.message?.lastIndex!! + 2
+        message.MessageId = findChatById(CompanionId)?.message!!.lastIndex + 2
         message.UnreadMessages = true
-        findChatById(CompanionId)!!.message += message
+        findChatById(CompanionId)?.message?.plusAssign(message)
         findChatById(CompanionId)?.LastTime = Instant.now()
         return findChatById(CompanionId)?.message!!.last()
     }
 
     fun getMessages(CompanionId: Int) {
-        findChatById(CompanionId)!!.message.onEach { it.UnreadMessages = false }
-        findChatById(CompanionId)!!.message.forEach(::println)
+        findChatById(CompanionId)?.message?.onEach { it.UnreadMessages = false }
+        findChatById(CompanionId)?.message?.forEach(::println)
     }
 
     fun getUnreadMessage(CompanionId: Int) {
@@ -75,7 +75,7 @@ object chatServise {
     }
 
     fun deleteMessages(CompanionId: Int, MessageId: Int) {
-        findChatById(CompanionId)!!.message.remove(findMessageById(MessageId, CompanionId))
+        findChatById(CompanionId)?.message?.remove(findMessageById(MessageId, CompanionId))
     }
 
     fun deleteChat(CompanionId: Int) {
