@@ -63,14 +63,15 @@ object chatServise {
     }
 
     fun getMessages(CompanionId: Int) {
-        findChatById(CompanionId)?.message?.onEach { it.UnreadMessages = false }
-        findChatById(CompanionId)?.message?.forEach(::println)
+        findChatById(CompanionId)?.message
+            ?.onEach { it.UnreadMessages = false }
+            ?.forEach(::println)
     }
 
     fun getUnreadMessage(CompanionId: Int) {
-        var UnreadMessages =
-            findChatById(CompanionId)?.message?.filter(fun(message: Chat.Message) = message.UnreadMessages === true)
-        findChatById(CompanionId)!!.message.onEach { it.UnreadMessages = false }
+        var UnreadMessages = findChatById(CompanionId)?.message
+            ?.filter(fun(message: Chat.Message) = message.UnreadMessages === true)
+            ?.onEach { it.UnreadMessages = false }
         println(UnreadMessages)
     }
 
@@ -110,5 +111,6 @@ object chatServise {
         return null
     }
 }
+
 
 class ChatNotFoundException(message: String) : RuntimeException(message)
